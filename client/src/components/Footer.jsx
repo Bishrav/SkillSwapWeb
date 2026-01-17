@@ -37,9 +37,7 @@ const Footer = () => {
                     <p className="text-base text-gray-400">
                         &copy; 2026 SkillSwap Inc. All rights reserved.
                     </p>
-                    <p className="flex items-center text-sm text-gray-500 mt-4 md:mt-0">
-                        Made with <Heart className="h-4 w-4 text-red-500 mx-1 fill-current animate-pulse" /> by the SkillSwap Team
-                    </p>
+
                 </div>
             </div>
         </footer>
