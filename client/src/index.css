@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-size: 18px;
+    }
+
+    body {
+        @apply transition-colors duration-300;
+        background-color: #f3f4f6;
+        color: #111827;
+    }
+}
+
+/* Splash Screen Animations */
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce-slow {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes loading-bar {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.animate-zoomIn {
+    animation: zoomIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    opacity: 0;
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 3s ease-in-out infinite;
+}
+
+.animate-loading-bar {
+    animation: loading-bar 1.5s linear forwards;
+}
+
+/* Explicit fallback for dark mode if tailwind @apply is acting up */
+.dark body {
+    background-color: #0f172a !important;
+    color: #f1f5f9 !important;
+}
+
+.dark .bg-white,
+.dark .bg-gray-50 {
+    background-color: #1e293b !important;
+}
+
+.dark .text-gray-900,
+.dark .text-gray-700,
+.dark .text-gray-800 {
+    color: #f8fafc !important;
+}
+
+.dark .border-gray-100,
+.dark .border-gray-200 {
+    border-color: #334155 !important;
+}
+
+/* Premium Heading Styling */
+.heading-premium {
+    font-family: 'Syne', sans-serif;
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+    position: relative;
+    display: inline-block;
+}
+
+.heading-premium::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 40px;
+    height: 4px;
+    background: linear-gradient(90deg, #6366f1, transparent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.heading-premium:hover::after {
+    width: 60%;
+}
