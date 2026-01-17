@@ -1,3 +1,7 @@
+/**
+ * SkillSwap Server Entry Point
+ * Handles routing, middleware, and database connection.
+ */
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
