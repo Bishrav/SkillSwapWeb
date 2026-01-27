@@ -1,6 +1,4 @@
 const pool = require("../config/db");
-
-// Create a Post (Add Skill)
 exports.createPost = async (req, res) => {
     try {
         const { title, description, category, image_url, fee } = req.body;
@@ -15,8 +13,6 @@ exports.createPost = async (req, res) => {
         res.status(500).send("Server Error");
     }
 };
-
-// Get All Posts (Feed - Smart Algorithm)
 exports.getAllPosts = async (req, res) => {
     try {
         const { search } = req.query;
@@ -45,10 +41,6 @@ exports.getAllPosts = async (req, res) => {
         if (conditions.length > 0) {
             query += " WHERE " + conditions.join(" AND ");
         }
-
-        // Order by: 
-        // 1. Followed users (is_following DESC)
-        // 2. Created date DESC
         query += " ORDER BY is_following DESC, p.created_at DESC";
 
         const allPosts = await pool.query(query, values);
@@ -58,12 +50,10 @@ exports.getAllPosts = async (req, res) => {
         res.status(500).send("Server Error");
     }
 };
-
-// Get Single Post
 exports.getPostById = async (req, res) => {
     try {
         const { id } = req.params;
-        const currentUserId = req.user.id; // From auth middleware
+        const currentUserId = req.user.id;
 
         const post = await pool.query(`
             SELECT p.*, u.username, u.first_name, u.last_name, u.profile_image,

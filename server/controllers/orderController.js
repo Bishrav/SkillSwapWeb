@@ -6,8 +6,6 @@ exports.createOrder = async (req, res) => {
         await client.query('BEGIN');
         const { contact_number, delivery_address } = req.body;
         const user_id = req.user.id;
-
-        // 1. Get items from cart
         const cartItems = await client.query(
             "SELECT post_id FROM cart WHERE user_id = $1",
             [user_id]
@@ -17,16 +15,12 @@ exports.createOrder = async (req, res) => {
             await client.query('ROLLBACK');
             return res.status(400).json("Cart is empty");
         }
-
-        // 2. Move items to orders
         for (let item of cartItems.rows) {
             await client.query(
                 "INSERT INTO orders (user_id, post_id, contact_number, delivery_address) VALUES ($1, $2, $3, $4)",
                 [user_id, item.post_id, contact_number, delivery_address]
             );
         }
-
-        // 3. Clear cart
         await client.query("DELETE FROM cart WHERE user_id = $1", [user_id]);
 
         await client.query('COMMIT');

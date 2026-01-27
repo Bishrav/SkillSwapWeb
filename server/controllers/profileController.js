@@ -1,7 +1,4 @@
 const pool = require("../config/db");
-
-// --- Experience ---
-
 exports.addExperience = async (req, res) => {
     try {
         const { company, duration, work_type, skills, description } = req.body;
@@ -36,9 +33,6 @@ exports.deleteExperience = async (req, res) => {
         res.status(500).send("Server Error");
     }
 };
-
-// --- Education ---
-
 exports.addEducation = async (req, res) => {
     try {
         const { university, duration, course } = req.body;

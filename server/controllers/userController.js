@@ -71,8 +71,6 @@ exports.getUserById = async (req, res) => {
         res.status(500).send("Server Error");
     }
 };
-
-// Get Other User's Posts
 exports.getUserPostsById = async (req, res) => {
     try {
         const { id } = req.params;

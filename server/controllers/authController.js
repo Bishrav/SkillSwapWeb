@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
         ]);
 
         if (user.rows.length > 0) {
-            return res.status(401).json("User already exists");
+            return res.status(400).json("User already exists");
         }
 
         const saltRound = 10;
