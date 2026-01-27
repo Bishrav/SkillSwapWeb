@@ -22,11 +22,9 @@ export default function PostDetails({ setAuth }) {
         } catch (err) {
             console.error(err.message);
             toast.error("Could not load post");
-            navigate('/'); // Redirect to home if post not found
+            navigate('/');
         }
     };
-
-    // Reusing handlers from Home.jsx or similar logic
     const handleLike = async (postId) => {
         setPost(prev => ({
             ...prev,

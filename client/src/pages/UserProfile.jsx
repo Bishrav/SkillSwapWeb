@@ -62,7 +62,6 @@ export default function UserProfile({ setAuth }) {
         }
     };
 
-    // Reusing handlers (consider moving these to a hook later)
     const handleLike = async (postId) => {
         setPosts(posts.map(p =>
             p.id === postId

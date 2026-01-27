@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 export default function Signup({ setAuth }) {
     const [inputs, setInputs] = useState({
@@ -27,14 +28,17 @@ export default function Signup({ setAuth }) {
 
             if (response.data.token) {
                 localStorage.setItem("token", response.data.token);
+                sessionStorage.setItem("justLoggedIn", "true");
+                toast.success("Account created successfully!");
                 setAuth(true);
             } else {
                 setAuth(false);
                 alert("Signup failed");
             }
         } catch (err) {
-            console.error(err.response?.data || "Error signing up");
-            alert(err.response?.data || "Error signing up");
+            const errorMessage = err.response?.data || err.message || "Error signing up";
+            console.error("Signup error:", errorMessage);
+            toast.error(typeof errorMessage === 'string' ? errorMessage : "An unexpected error occurred");
         }
     };
 

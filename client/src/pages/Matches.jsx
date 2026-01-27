@@ -6,9 +6,6 @@ export default function Matches({ setAuth }) {
     const [matches, setMatches] = useState([]);
 
     useEffect(() => {
-        // Need a route to get matches. 
-        // "if the other person posted also likes then they can trade their skill"
-        // I haven't implemented a GET /matches endpoint. I should.
     }, []);
 
     return (

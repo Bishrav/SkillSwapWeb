@@ -8,9 +8,9 @@ import { formatDistanceToNow } from 'date-fns';
 export default function Profile({ setAuth }) {
     const [user, setUser] = useState({});
     const [posts, setPosts] = useState([]);
-    const [orders, setOrders] = useState([]); // New state for orders
-    const [editingImage, setEditingImage] = useState(false);
+    const [orders, setOrders] = useState([]);
     const [imageUrl, setImageUrl] = useState("");
+    const [editingImage, setEditingImage] = useState(false);
 
     const getProfile = async () => {
         try {
@@ -35,7 +35,7 @@ export default function Profile({ setAuth }) {
         }
     }
 
-    // New function to get orders
+
     const getOrders = async () => {
         try {
             const response = await axios.get("http://localhost:5000/orders", {

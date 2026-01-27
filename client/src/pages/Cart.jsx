@@ -40,6 +40,8 @@ export default function Cart({ setAuth }) {
         e.preventDefault();
         try {
             await axios.post("http://localhost:5000/orders/checkout", {
+                first_name: user.first_name,
+                last_name: user.last_name,
                 contact_number: contactNumber,
                 delivery_address: deliveryAddress
             }, {
@@ -183,11 +185,23 @@ export default function Cart({ setAuth }) {
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">First Name</label>
-                                        <input type="text" value={user.first_name || ''} readOnly className="block w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-lg text-gray-500 dark:text-gray-400 focus:outline-none" />
+                                        <input
+                                            type="text"
+                                            required
+                                            value={user.first_name || ''}
+                                            onChange={(e) => setUser({ ...user, first_name: e.target.value })}
+                                            className="block w-full px-4 py-3 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                                        />
                                     </div>
                                     <div>
                                         <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Last Name</label>
-                                        <input type="text" value={user.last_name || ''} readOnly className="block w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-lg text-gray-500 dark:text-gray-400 focus:outline-none" />
+                                        <input
+                                            type="text"
+                                            required
+                                            value={user.last_name || ''}
+                                            onChange={(e) => setUser({ ...user, last_name: e.target.value })}
+                                            className="block w-full px-4 py-3 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                                        />
                                     </div>
                                 </div>
 

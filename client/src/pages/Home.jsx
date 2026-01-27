@@ -11,7 +11,7 @@ export default function Home({ setAuth }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
-    const [likedPosts, setLikedPosts] = useState({}); // Track liked status locally for animation
+    const [likedPosts, setLikedPosts] = useState({});
 
     const getPosts = async (searchTerm = "") => {
         try {
@@ -36,7 +36,7 @@ export default function Home({ setAuth }) {
             await axios.post(`http://localhost:5000/follow/${userId}`, {}, {
                 headers: { token: localStorage.getItem("token") }
             });
-            // Update local state to show "Following"
+
             setPosts(posts.map(post =>
                 post.user_id === userId ? { ...post, is_following: true } : post
             ));
@@ -67,15 +67,23 @@ export default function Home({ setAuth }) {
             }, {
                 headers: { token: localStorage.getItem("token") }
             });
-            toast.success(response.data, { icon: '🛒' });
+            toast.success(response.data, {
+                icon: '🛒',
+                duration: 3000,
+                style: {
+                    borderRadius: '12px',
+                    background: '#10b981',
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    boxShadow: '0 10px 15px -3px rgba(16, 185, 129, 0.2)'
+                },
+            });
         } catch (err) {
             toast.error(err.response?.data || "Error adding to cart");
         }
     };
 
     const handleLike = async (postId) => {
-        // Optimistic UI update
-        // Toggle the is_liked status in the local state
         setPosts(posts.map(post =>
             post.id === postId
                 ? {
@@ -86,7 +94,6 @@ export default function Home({ setAuth }) {
                 : post
         ));
 
-        // Trigger animation briefly
         setLikedPosts(prev => ({ ...prev, [postId]: true }));
 
         setTimeout(() => {
@@ -107,7 +114,6 @@ export default function Home({ setAuth }) {
                 });
             }
         } catch (err) {
-            // Revert on error? For now just log
             console.error(err);
         }
     };
@@ -127,6 +133,20 @@ export default function Home({ setAuth }) {
 
     useEffect(() => {
         getPosts();
+
+
+        if (sessionStorage.getItem("justLoggedIn")) {
+            toast.success("Welcome to SkillSwap! Explore and trade skills.", {
+                duration: 4000,
+                icon: '🚀',
+                style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                },
+            });
+            sessionStorage.removeItem("justLoggedIn");
+        }
     }, []);
 
     return (

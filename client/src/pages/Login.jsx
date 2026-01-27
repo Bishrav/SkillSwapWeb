@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 export default function Login({ setAuth }) {
     const [inputs, setInputs] = useState({
@@ -22,16 +23,18 @@ export default function Login({ setAuth }) {
 
             if (response.data.token) {
                 localStorage.setItem("token", response.data.token);
+                sessionStorage.setItem("justLoggedIn", "true");
                 setAuth(true);
-                // Explicitly inspect where we are going
+
                 console.log("Login successful, token set");
             } else {
                 setAuth(false);
                 alert("Login failed: No token received");
             }
         } catch (err) {
-            console.error(err.response?.data || "Error logging in");
-            alert(err.response?.data || "Error logging in");
+            const errorMessage = err.response?.data || err.message || "Error logging in";
+            console.error("Login error:", errorMessage);
+            toast.error(typeof errorMessage === 'string' ? errorMessage : "An unexpected error occurred");
         }
     };
 

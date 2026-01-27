@@ -59,7 +59,7 @@ export default function Saved({ setAuth }) {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {posts.map((post, index) => (
                             <div key={post.id} className="bg-white dark:bg-[#1e293b] rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 group flex flex-col h-full animate-fadeInUp border border-gray-100 dark:border-slate-800" style={{ animationDelay: `${index * 100}ms` }}>
-                                {/* Image Container */}
+
                                 <div className="h-48 w-full overflow-hidden relative">
                                     {post.image_url ? (
                                         <img className="h-full w-full object-cover transform group-hover:scale-110 transition-transform duration-700" src={post.image_url} alt={post.title} />
@@ -73,7 +73,7 @@ export default function Saved({ setAuth }) {
                                             {post.category || 'General'}
                                         </span>
                                     </div>
-                                    {/* Quick Actions Overlay (Optional) */}
+
                                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-4">
                                         <Link to={`/post/${post.post_id || post.id}`} className="bg-white dark:bg-slate-800 text-gray-900 dark:text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                                             View Details

@@ -18,6 +18,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 import { ThemeProvider } from './context/ThemeContext';
 import SplashScreen from './components/SplashScreen';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -52,11 +53,19 @@ function App() {
                 headers: { token: token }
             });
 
+            if (response.status === 401 || response.status === 403) {
+                localStorage.removeItem("token");
+                setIsAuthenticated(false);
+                setLoading(false);
+                return;
+            }
+
             const parseRes = await response.json();
 
             parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
         } catch (err) {
             console.error(err.message);
+            localStorage.removeItem("token");
             setIsAuthenticated(false);
         } finally {
             setLoading(false);
@@ -73,6 +82,7 @@ function App() {
         <ThemeProvider>
             <Router>
                 <div className="bg-gray-100 dark:bg-[#0f172a] min-h-screen transition-colors duration-300">
+                    <Toaster position="top-right" reverseOrder={false} />
                     {showSplash && <SplashScreen />}
                     <Routes>
                         <Route element={<PublicRoute isAuthenticated={isAuthenticated} />}>
